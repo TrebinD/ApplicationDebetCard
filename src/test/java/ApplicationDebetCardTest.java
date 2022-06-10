@@ -4,28 +4,32 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ApplicationDebetCardTest {
-    private WebDriver driver;
+    WebDriver driver;
 
     @BeforeAll
-    public static void setUpAll(){
-        System.setProperty("webdriver.chrome.driver","./drivers/win/chromedriver.exe");
+    static void setupClass() {
+        WebDriverManager.chromedriver().setup();
     }
 
     @BeforeEach
-    public void setUp(){
+    void setupTest() {
         driver = new ChromeDriver();
     }
 
     @AfterEach
-    public void tearDown(){
-        driver.quit();
-        driver = null;
+    void teardown() {
+        if (driver != null) {
+            driver.quit();
+        }
     }
+
 
     @Test
     public void validData(){
